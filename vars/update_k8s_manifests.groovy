@@ -6,7 +6,7 @@
 def call(Map config = [:]) {
     def imageTag = config.imageTag ?: error("Image tag is required")
     def manifestsPath = config.manifestsPath ?: 'kubernetes'
-    def gitCredentials = config.gitCredentials ?: 'github-credentials'
+    def gitCredentials = config.gitCredentials ?: 'git-hub-cred'
     def gitUserName = config.gitUserName ?: 'Jenkins CI'
     def gitUserEmail = config.gitUserEmail ?: 'jenkins@example.com'
     
@@ -29,13 +29,13 @@ def call(Map config = [:]) {
             sed -i "s|image: devshubh2204/easyshop-hack_app:.*|image: devshubh2204/easyshop-hack_app:${imageTag}|g" ${manifestsPath}/easyshop-hack-deployment.yml
             
             # Update migration job if it exists
-            if [ -f "${manifestsPath}/12-migration-job.yaml" ]; then
+            if [ -f "${manifestsPath}/easy-shop-migration-job.yml" ]; then
                 sed -i "s|image: devshubh2204/easyshop-hack_migration:.*|image: devshubh2204/easyshop-hack_migration:${imageTag}|g" ${manifestsPath}/easy-shop-migration-job.yml
             fi
             
             # Ensure ingress is using the correct domain
-            if [ -f "${manifestsPath}/10-ingress.yaml" ]; then
-                sed -i "s|host: .*|host: easyshop.letsdeployit.com|g" ${manifestsPath}/10-ingress.yaml
+            if [ -f "${manifestsPath}/ingress.yaml" ]; then
+                sed -i "s|host: .*|host: easyshop.letsdeployit.com|g" ${manifestsPath}/ingress.yaml
             fi
             
             # Check for changes
