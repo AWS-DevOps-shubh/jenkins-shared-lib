@@ -5,7 +5,7 @@
  */
 def call(Map config = [:]) {
     def imageTag = config.imageTag ?: error("Image tag is required")
-    def manifestsPath = config.manifestsPath ?: 'kubernetes'
+    def manifestsPath = config.manifestsPath ?: 'K8s'
     def gitCredentials = config.gitCredentials ?: 'git-hub-cred'
     def gitUserName = config.gitUserName ?: 'AWS-DevOps-shubh'
     def gitUserEmail = config.gitUserEmail ?: 'devshubh2204@gmail.com'
