@@ -34,8 +34,8 @@ def call(Map config = [:]) {
             fi
             
             # Ensure ingress is using the correct domain
-            if [ -f "${manifestsPath}/ingress.yaml" ]; then
-                sed -i "s|host: .*|host: easyshop.letsdeployit.com|g" ${manifestsPath}/ingress.yaml
+            if [ -f "${manifestsPath}/ingress.yml" ]; then
+                sed -i "s|host: .*|host: easyshop.letsdeployit.com|g" ${manifestsPath}/ingress.yml
             fi
             
             # Check for changes
@@ -43,7 +43,7 @@ def call(Map config = [:]) {
                 echo "No changes to commit"
             else
                 # Commit and push changes
-                git add ${manifestsPath}/*.yaml
+                git add ${manifestsPath}/*.yml
                 git commit -m "Update image tags to ${imageTag} and ensure correct domain [ci skip]"
                 
                 # Set up credentials for push
