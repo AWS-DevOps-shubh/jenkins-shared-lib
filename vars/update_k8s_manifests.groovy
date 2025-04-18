@@ -13,7 +13,7 @@ def call(Map config = [:]) {
     echo "Updating Kubernetes manifests with image tag: ${imageTag}"
     
     withCredentials([usernamePassword(
-        credentialsId: gitCredentials,
+        credentialsId: 	git-hub-cred,
         usernameVariable: 'GIT_USERNAME',
         passwordVariable: 'GIT_PASSWORD'
     )]) {
@@ -25,12 +25,12 @@ def call(Map config = [:]) {
         
         // Update deployment manifests with new image tags - using proper Linux sed syntax
         sh """
-            # Update main application deployment - note the correct image name is trainwithshubham/easyshop-app
-            sed -i "s|image: trainwithshubham/easyshop-app:.*|image: trainwithshubham/easyshop-app:${imageTag}|g" ${manifestsPath}/08-easyshop-deployment.yaml
+            # Update main application deployment - note the correct image name is devshubh2204/easyshop-hack_app
+            sed -i "s|image: devshubh2204/easyshop-hack_app:.*|image: devshubh2204/easyshop-hack_app:${imageTag}|g" ${manifestsPath}/easyshop-hack-deployment.yml
             
             # Update migration job if it exists
             if [ -f "${manifestsPath}/12-migration-job.yaml" ]; then
-                sed -i "s|image: trainwithshubham/easyshop-migration:.*|image: trainwithshubham/easyshop-migration:${imageTag}|g" ${manifestsPath}/12-migration-job.yaml
+                sed -i "s|image: devshubh2204/easyshop-hack_migration:.*|image: devshubh2204/easyshop-hack_migration:${imageTag}|g" ${manifestsPath}/easy-shop-migration-job.yml
             fi
             
             # Ensure ingress is using the correct domain
@@ -47,7 +47,7 @@ def call(Map config = [:]) {
                 git commit -m "Update image tags to ${imageTag} and ensure correct domain [ci skip]"
                 
                 # Set up credentials for push
-                git remote set-url origin https://\${GIT_USERNAME}:\${GIT_PASSWORD}@github.com/LondheShubham153/tws-e-commerce-app.git
+                git remote set-url origin https://\${GIT_USERNAME}:\${GIT_PASSWORD}@github.com/AWS-DevOps-shubh/easyshop-hack.git
                 git push origin HEAD:\${GIT_BRANCH}
             fi
         """
