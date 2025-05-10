@@ -6,7 +6,7 @@ def call(Map config = [:]) {
     def gitCredentials = config.gitCredentials ?: 'git-hub-cred'
     def gitUserName = config.gitUserName ?: 'AWS-DevOps-shubh'
     def gitUserEmail = config.gitUserEmail ?: 'devshubh2204@gmail.com'
-    def gitBranch = config.gitBranch ?: 'main'
+    def gitBranch = config.gitBranch ?: 'dev-shubh'
 
     echo "Updating Kubernetes manifests with image tag: ${imageTag}"
 
