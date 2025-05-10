@@ -25,7 +25,7 @@ def call(Map config = [:]) {
         
         // Update deployment manifests with new image tags - using proper Linux sed syntax
         sh """
-            # Update main application deployment - note the correct image name is devshubh2204/easyshop-hack_app
+            # Update main application deployment - note the correct image name is devshubh2204/geminiclonenip
             sed -i "s|image: devshubh2204/geminiclonenip:.*|image: devshubh2204/geminiclonenip:${imageTag}|g" ${manifestsPath}/gemini-deployment.yml
 
             
