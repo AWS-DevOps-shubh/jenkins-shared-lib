@@ -5,7 +5,7 @@
  */
 def call(Map config = [:]) {
     def imageTag = config.imageTag ?: error("Image tag is required")
-    def manifestsPath = config.manifestsPath ?: 'K8s'
+    def manifestsPath = config.manifestsPath ?: 'kubernetes'
     def gitCredentials = config.gitCredentials ?: 'git-hub-cred'
     def gitUserName = config.gitUserName ?: 'AWS-DevOps-shubh'
     def gitUserEmail = config.gitUserEmail ?: 'devshubh2204@gmail.com'
@@ -34,8 +34,8 @@ def call(Map config = [:]) {
             fi
             
             # Ensure ingress is using the correct domain
-            if [ -f "${manifestsPath}/ingress.yml" ]; then
-                sed -i "s|host: .*|host: easyshop.letsdeployit.com|g" ${manifestsPath}/ingress.yml
+            if [ -f "${manifestsPath}/gemini-ingress.yml" ]; then
+                sed -i "s|host: .*|host: gemini.letsdeployit.com|g" ${manifestsPath}/gemini-ingress.yml
             fi
             
             # Check for changes
