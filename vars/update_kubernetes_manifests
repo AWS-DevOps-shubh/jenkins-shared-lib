@@ -4,7 +4,7 @@ def call(Map config = [:]) {
     def gitCredentials = config.gitCredentials ?: 'git-hub-cred'
     def gitUserName = config.gitUserName ?: 'AWS-DevOps-shubh'
     def gitUserEmail = config.gitUserEmail ?: 'devshubh2204@gmail.com'
-    def gitBranch = config.gitBranch ?: env.BRANCH_NAME ?: 'main'
+    def gitBranch = config.gitBranch ?: env.BRANCH_NAME ?: 'dev-shubh'
 
     echo "Updating Kubernetes manifests with image tag: ${imageTag}"
 
@@ -19,10 +19,6 @@ def call(Map config = [:]) {
 
             if [ -f "${manifestsPath}/gemini-deployment.yml" ]; then
                 sed -i "s|image: devshubh2204/geminiclonenip:.*|image: devshubh2204/geminiclonenip:${imageTag}|g" ${manifestsPath}/gemini-deployment.yml
-            fi
-
-            if [ -f "${manifestsPath}/easy-shop-migration-job.yml" ]; then
-                sed -i "s|image: devshubh2204/easyshop-hack_migration:.*|image: devshubh2204/easyshop-hack_migration:${imageTag}|g" ${manifestsPath}/easy-shop-migration-job.yml
             fi
 
             if [ -f "${manifestsPath}/gemini-ingress.yml" ]; then
